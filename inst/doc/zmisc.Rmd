@@ -1,0 +1,132 @@
+---
+title: "zmisc"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{zmisc}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+# We need rprojroot to locate other files needed for the Vignette
+library(rprojroot)
+
+# Source a few helper/utility functions
+source(find_package_root_file("vignettes","utils_knitr.R"))
+source(find_package_root_file("vignettes","utils_roxygen.R"))
+
+# Get roxygen blocks, use force to trigger any warnings immediately
+blocks <- roxy_get_blocks(find_package_root_file())
+blocks <- force(blocks)
+
+```
+
+## `r desc::desc_get("Title")`
+
+`r desc::desc_get("Description")`
+
+## Installation
+
+You can install the released version of `zmisc` from [CRAN](https://cran.r-project.org/package=zmisc) with:
+
+```r
+install.packages("zmisc")
+```
+
+You can install the development version of `zmisc` from [GitHub](https://github.com/torfason/zmisc) with:
+
+```r
+remotes::install_github("torfason/zmisc")
+```
+
+## Usage
+
+In order to use the package, you generally want to attach it first:
+
+```{r load_package}
+library(zmisc)
+```
+
+## Quick and easy value lookups
+
+The functions [lookup()] and [lookuper()] are used to look up values from a lookup
+table, which can be supplied as a `vector`, a `list`, or a `data.frame`. The functions
+are in some ways similar to the Excel function `VLOOKUP()`, but are designed to work smoothly 
+in an R workflow, in particular within pipes.
+
+### lookup: `r roxy_get_section(blocks, "lookup", "title")`
+
+`r roxy_get_section(blocks, "lookup", "description")`
+
+#### Examples
+
+```{r, echo=FALSE}
+roxy_get_section(blocks, "lookup", "examples") |> kat_code()
+```
+
+### lookuper: `r roxy_get_section(blocks, "lookuper", "title")`
+
+`r roxy_get_section(blocks, "lookuper", "description")`
+
+#### Examples
+
+```{r, echo=FALSE}
+roxy_get_section(blocks, "lookuper", "examples") |> kat_code()
+```
+
+## Safer sampling, sequencing and aggregation
+
+The functions [zample()], [zeq()], and [zingle()] are intended to make your code
+less likely to break in mysterious ways when you encounter unexpected boundary
+conditions. The [zample()] and [zeq()] are almost identical to the [sample()]
+and [seq()] functions, but a bit safer.
+
+### zample: `r roxy_get_section(blocks, "zample", "title")`
+
+`r roxy_get_section(blocks, "zample", "description")`
+
+#### Examples
+
+```{r, echo=FALSE}
+roxy_get_section(blocks, "zample", "examples") |> kat_code()
+```
+
+
+### zeq: `r roxy_get_section(blocks, "zeq", "title")`
+
+`r roxy_get_section(blocks, "zeq", "description")`
+
+#### Examples
+
+```{r, echo=FALSE}
+roxy_get_section(blocks, "zeq", "examples") |> kat_code()
+```
+
+
+### zingle: `r roxy_get_section(blocks, "zingle", "title")`
+
+`r roxy_get_section(blocks, "zingle", "description")`
+
+#### Examples
+
+```{r, echo=FALSE}
+roxy_get_section(blocks, "zingle", "examples") |> kat_code()
+```
+
+
+[lookup()]: https://torfason.github.io/zmisc/reference/lookup.html
+[lookuper()]: https://torfason.github.io/zmisc/reference/lookuper.html
+
+[zeq()]: https://torfason.github.io/zmisc/reference/zeq.html
+[zample()]: https://torfason.github.io/zmisc/reference/zample.html
+[zingle()]: https://torfason.github.io/zmisc/reference/zingle.html
+
+[seq()]:    https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/seq
+[sample()]: https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/sample
