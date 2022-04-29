@@ -38,6 +38,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
     </style>
 
 
+
 <style type="text/css">
   code {
     white-space: pre;
@@ -335,27 +336,48 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <div id="vector-look-ups-and-safer-sampling" class="section level2">
 <h2>Vector Look-Ups and Safer Sampling</h2>
-<p>A collection of utility functions that facilitate looking up vector values from a lookup table, and support a safer approach to vector sampling, sequence generation, and aggregation.</p>
+<p>A collection of utility functions that facilitate looking up vector
+values from a lookup table, and support a safer approach to vector
+sampling, sequence generation, and aggregation.</p>
 </div>
 <div id="installation" class="section level2">
 <h2>Installation</h2>
 <p>You can install the released version of <code>zmisc</code> from <a href="https://cran.r-project.org/package=zmisc">CRAN</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;zmisc&quot;</span>)</span></code></pre></div>
-<p>You can install the development version of <code>zmisc</code> from <a href="https://github.com/torfason/zmisc">GitHub</a> with:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;torfason/zmisc&quot;</span>)</span></code></pre></div>
+<p>You can use <code>pak</code> to install the development version of
+<code>zmisc</code> from <a href="https://github.com/torfason/zmisc">GitHub</a> with:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pak</span>(<span class="st">&quot;torfason/zmisc&quot;</span>)</span></code></pre></div>
 </div>
 <div id="usage" class="section level2">
 <h2>Usage</h2>
-<p>In order to use the package, you generally want to attach it first:</p>
+<p>In order to use the package, you generally want to attach it
+first:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(zmisc)</span></code></pre></div>
 </div>
 <div id="quick-and-easy-value-lookups" class="section level2">
 <h2>Quick and easy value lookups</h2>
-<p>The functions <a href="https://torfason.github.io/zmisc/reference/lookup.html">lookup()</a> and <a href="https://torfason.github.io/zmisc/reference/lookuper.html">lookuper()</a> are used to look up values from a lookup table, which can be supplied as a <code>vector</code>, a <code>list</code>, or a <code>data.frame</code>. The functions are in some ways similar to the Excel function <code>VLOOKUP()</code>, but are designed to work smoothly in an R workflow, in particular within pipes.</p>
+<p>The functions <a href="https://torfason.github.io/zmisc/reference/lookup.html">lookup()</a>
+and <a href="https://torfason.github.io/zmisc/reference/lookuper.html">lookuper()</a>
+are used to look up values from a lookup table, which can be supplied as
+a <code>vector</code>, a <code>list</code>, or a
+<code>data.frame</code>. The functions are in some ways similar to the
+Excel function <code>VLOOKUP()</code>, but are designed to work smoothly
+in an R workflow, in particular within pipes.</p>
 <div id="lookup-lookup-values-from-a-lookup-table" class="section level3">
 <h3>lookup: Lookup values from a lookup table</h3>
-<p>The <a href="https://torfason.github.io/zmisc/reference/lookup.html">lookup()</a> function implements lookup of certain strings (such as variable names) from an lookup table which maps keys onto values (such as variable labels or descriptions). Original values are returned if they are not found in the lookup table.</p>
-<p>The lookup table can be in the form of a two-column <code>data.frame</code>, in the form of a named <code>vector</code>, or in the form of a <code>list</code>. If the table is in the form of a <code>data.frame</code>, the lookup columns should be named <code>name</code> (for the key) and <code>value</code> (for the value). If the lookup table is in the form of a named <code>vector</code> or <code>list</code>, the name is used for the key, and the returned value is taken from the values in the vector or list.</p>
+<p>The <a href="https://torfason.github.io/zmisc/reference/lookup.html">lookup()</a>
+function implements lookup of certain strings (such as variable names)
+from a lookup table which maps keys onto values (such as variable labels
+or descriptions). Original values are returned if they are not found in
+the lookup table.</p>
+<p>The lookup table can be in the form of a two-column
+<code>data.frame</code>, in the form of a named <code>vector</code>, or
+in the form of a <code>list</code>. If the table is in the form of a
+<code>data.frame</code>, the lookup columns should be named
+<code>name</code> (for the key) and <code>value</code> (for the value).
+If the lookup table is in the form of a named <code>vector</code> or
+<code>list</code>, the name is used for the key, and the returned value
+is taken from the values in the vector or list.</p>
 <p>Any names in x are not included in the result.</p>
 <div id="examples" class="section level4">
 <h4>Examples</h4>
@@ -369,9 +391,16 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 </div>
 </div>
 <div id="lookuper-construct-lookup-function-based-on-a-specific-lookup-table" class="section level3">
-<h3>lookuper: Construct lookup function based on a specific lookup table</h3>
-<p>The <a href="https://torfason.github.io/zmisc/reference/lookuper.html">lookuper()</a> function returns <em>a function</em> equivalent to the <a href="https://torfason.github.io/zmisc/reference/lookup.html">lookup()</a> function, except that instead of taking a lookup table as an argument, the lookup table is embedded in the function itself.</p>
-<p>This can be very useful, in particular when using the lookup function as an argument to other functions that expect a function which maps <code>character</code>-&gt;<code>character</code> but do not offer a good way to pass additional arguments to that function.</p>
+<h3>lookuper: Construct lookup function based on a specific lookup
+table</h3>
+<p>The <a href="https://torfason.github.io/zmisc/reference/lookuper.html">lookuper()</a>
+function returns <em>a function</em> equivalent to the <a href="https://torfason.github.io/zmisc/reference/lookup.html">lookup()</a>
+function, except that instead of taking a lookup table as an argument,
+the lookup table is embedded in the function itself.</p>
+<p>This can be very useful, in particular when using the lookup function
+as an argument to other functions that expect a function which maps
+<code>character</code>-&gt;<code>character</code> but do not offer a
+good way to pass additional arguments to that function.</p>
 <div id="examples-1" class="section level4">
 <h4>Examples</h4>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>lookup_fruits <span class="ot">&lt;-</span> <span class="fu">lookuper</span>(<span class="fu">list</span>(<span class="at">a=</span><span class="st">&quot;Apple&quot;</span>, <span class="at">b=</span><span class="st">&quot;Banana&quot;</span>, <span class="at">c=</span><span class="st">&quot;Cherry&quot;</span>))</span>
@@ -381,10 +410,25 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 </div>
 <div id="safer-sampling-sequencing-and-aggregation" class="section level2">
 <h2>Safer sampling, sequencing and aggregation</h2>
-<p>The functions <a href="https://torfason.github.io/zmisc/reference/zample.html">zample()</a>, <a href="https://torfason.github.io/zmisc/reference/zeq.html">zeq()</a>, and <a href="https://torfason.github.io/zmisc/reference/zingle.html">zingle()</a> are intended to make your code less likely to break in mysterious ways when you encounter unexpected boundary conditions. The <a href="https://torfason.github.io/zmisc/reference/zample.html">zample()</a> and <a href="https://torfason.github.io/zmisc/reference/zeq.html">zeq()</a> are almost identical to the <a href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/sample">sample()</a> and <a href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/seq">seq()</a> functions, but a bit safer.</p>
+<p>The functions <a href="https://torfason.github.io/zmisc/reference/zample.html">zample()</a>,
+<a href="https://torfason.github.io/zmisc/reference/zeq.html">zeq()</a>,
+and <a href="https://torfason.github.io/zmisc/reference/zingle.html">zingle()</a>
+are intended to make your code less likely to break in mysterious ways
+when you encounter unexpected boundary conditions. The <a href="https://torfason.github.io/zmisc/reference/zample.html">zample()</a>
+and <a href="https://torfason.github.io/zmisc/reference/zeq.html">zeq()</a> are
+almost identical to the <a href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/sample">sample()</a>
+and <a href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/seq">seq()</a>
+functions, but a bit safer.</p>
 <div id="zample-sample-from-a-vector-in-a-safe-way" class="section level3">
 <h3>zample: Sample from a vector in a safe way</h3>
-<p>The <a href="https://torfason.github.io/zmisc/reference/zample.html">zample()</a> function duplicates the functionality of <a href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/sample">sample()</a>, with the exception that it does not attempt the (sometimes dangerous) user-friendliness of switching the interpretation of the first element to a number if the length of the vector is 1. <code>zample()</code> <em>always</em> treats its first argument as a vector containing elements that should be sampled, so your code won’t break in unexpected ways when the input vector happens to be of length 1.</p>
+<p>The <a href="https://torfason.github.io/zmisc/reference/zample.html">zample()</a>
+function duplicates the functionality of <a href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/sample">sample()</a>,
+with the exception that it does not attempt the (sometimes dangerous)
+user-friendliness of switching the interpretation of the first element
+to a number if the length of the vector is 1. <code>zample()</code>
+<em>always</em> treats its first argument as a vector containing
+elements that should be sampled, so your code won’t break in unexpected
+ways when the input vector happens to be of length 1.</p>
 <div id="examples-2" class="section level4">
 <h4>Examples</h4>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># For vectors of length 2 or more, zample() and sample() are identical</span></span>
@@ -408,7 +452,13 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 </div>
 <div id="zeq-generate-sequence-in-a-safe-way" class="section level3">
 <h3>zeq: Generate sequence in a safe way</h3>
-<p>The <a href="https://torfason.github.io/zmisc/reference/zeq.html">zeq()</a> function creates an increasing integer sequence, but differs from the standard one in that it will not silently generate a decreasing sequence when the second argument is smaller than the first. If the second argument is one smaller than the first it will generate an empty sequence, if the difference is greater, the function will throw an error.</p>
+<p>The <a href="https://torfason.github.io/zmisc/reference/zeq.html">zeq()</a>
+function creates an increasing integer sequence, but differs from the
+standard one in that it will not silently generate a decreasing sequence
+when the second argument is smaller than the first. If the second
+argument is one smaller than the first it will generate an empty
+sequence, if the difference is greater, the function will throw an
+error.</p>
 <div id="examples-3" class="section level4">
 <h4>Examples</h4>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># For increasing sequences, zeq() and seq() are identical</span></span>
@@ -424,7 +474,14 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 </div>
 <div id="zingle-return-the-single-unique-value-found-in-a-vector" class="section level3">
 <h3>zingle: Return the single (unique) value found in a vector</h3>
-<p>The <a href="https://torfason.github.io/zmisc/reference/zingle.html">zingle()</a> function returns the first element in a vector, but only if all the other elements are identical to the first one (the vector only has a <code>zingle</code> value). If the elements are not all identical, it throws an error. The vector must contain at least one non-<code>NA</code> value, or the function errors out as well. This is especially useful in aggregations, when all values in a given group should be identical, but you want to make sure.</p>
+<p>The <a href="https://torfason.github.io/zmisc/reference/zingle.html">zingle()</a>
+function returns the first element in a vector, but only if all the
+other elements are identical to the first one (the vector only has a
+<code>zingle</code> value). If the elements are not all identical, it
+throws an error. The vector must contain at least one
+non-<code>NA</code> value, or the function errors out as well. This is
+especially useful in aggregations, when all values in a given group
+should be identical, but you want to make sure.</p>
 <div id="examples-4" class="section level4">
 <h4>Examples</h4>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># If all elements are identical, all is good.</span></span>

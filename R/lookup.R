@@ -3,7 +3,7 @@
 #'
 #' @description
 #' The [lookup()] function implements lookup of certain strings (such as
-#' variable names) from an lookup table which maps keys onto values (such as
+#' variable names) from a lookup table which maps keys onto values (such as
 #' variable labels or descriptions). Original values are returned if they are
 #' not found in the lookup table.
 #'

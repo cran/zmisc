@@ -3,6 +3,10 @@ zmisc
 
 <!-- README.md is generated from README.Rmd -->
 <!-- badges: start -->
+
+[![CRAN
+status](https://www.r-pkg.org/badges/version/zmisc)](https://CRAN.R-project.org/package=zmisc)
+[![R-CMD-check](https://github.com/torfason/zmisc/workflows/R-CMD-check/badge.svg)](https://github.com/torfason/zmisc/actions)
 <!-- badges: end -->
 
 ## Vector Look-Ups and Safer Sampling
@@ -20,11 +24,11 @@ You can install the released version of `zmisc` from
 install.packages("zmisc")
 ```
 
-You can install the development version of `zmisc` from
+You can use `pak` to install the development version of `zmisc` from
 [GitHub](https://github.com/torfason/zmisc) with:
 
 ``` r
-remotes::install_github("torfason/zmisc")
+pak::pak("torfason/zmisc")
 ```
 
 ## Usage
@@ -49,9 +53,9 @@ smoothly in an R workflow, in particular within pipes.
 
 The [lookup()](https://torfason.github.io/zmisc/reference/lookup.html)
 function implements lookup of certain strings (such as variable names)
-from an lookup table which maps keys onto values (such as variable
-labels or descriptions). Original values are returned if they are not
-found in the lookup table.
+from a lookup table which maps keys onto values (such as variable labels
+or descriptions). Original values are returned if they are not found in
+the lookup table.
 
 The lookup table can be in the form of a two-column `data.frame`, in the
 form of a named `vector`, or in the form of a `list`. If the table is in
@@ -85,7 +89,7 @@ the lookup table is embedded in the function itself.
 
 This can be very useful, in particular when using the lookup function as
 an argument to other functions that expect a function which maps
-`character`->`character` but do not offer a good way to pass additional
+`character`-\>`character` but do not offer a good way to pass additional
 arguments to that function.
 
 #### Examples

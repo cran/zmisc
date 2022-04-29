@@ -40,10 +40,10 @@ You can install the released version of `zmisc` from [CRAN](https://cran.r-proje
 install.packages("zmisc")
 ```
 
-You can install the development version of `zmisc` from [GitHub](https://github.com/torfason/zmisc) with:
+You can use `pak` to install the development version of `zmisc` from [GitHub](https://github.com/torfason/zmisc) with:
 
 ```r
-remotes::install_github("torfason/zmisc")
+pak::pak("torfason/zmisc")
 ```
 
 ## Usage

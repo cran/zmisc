@@ -1,28 +1,11 @@
+#' ---
+#' output: reprex::reprex_document
+#' ---
 
-#### .Rd file parsing ####
-
-# Utility function to extract title from Rd file
-#
-# The function could theoretically return most fields from the Rd file, but any
-# formatting will be included, making other fields than "title" of little use,
-# so this is currently the only supported field.
-#
-# In most cases, it is better to use the roxy_* functions which use roxygen to
-# extract fields (tags) directly from the source files.
-rd_get <- function(function_name, section) {
-  stopifnot(section %in% c("title", "description", "examples"))
-  rd <- find_package_root_file("man", paste0(function_name,".Rd")) |>
-    tools::parse_Rd()
-  rd_tags  <- tools:::RdTags(rd)
-  rd_section <- rd[[which(rd_tags == paste0("\\", section))]] |> unlist()
-  rd_section
-}
-
-#### Roxygen parsing ####
 
 # Parse source code to get roxygen block objects
 #
-# This function is based on roxygenise, but opits the parts that have side
+# This function is based on roxygenise, but omits the parts that have side
 # effects - that is the parts that affect the enviroment and that output
 # documentation files.
 roxy_get_blocks <- function (package.dir = ".") {
@@ -61,8 +44,8 @@ roxy_get_blocks <- function (package.dir = ".") {
 # @param name_tag The name of the tag/section (@title/@description/@examples)
 roxy_get_section <- function(blocks, name_topic, name_tag) {
 
-  # Do not unclass, because that fails with roxygen2 v7.1.3 onward
-  b <- blocks # |> rapply(unclass, how="list")
+  # Better to work with unclassed structure
+  b <- blocks |> rapply(unclass, how="list")
 
   # Get the list of all topics (function names) that are
   # documented in the package, and assign as names to b
@@ -88,3 +71,6 @@ roxy_get_section <- function(blocks, name_topic, name_tag) {
   stringr::str_trim(result)
 }
 
+blocks <- roxy_get_blocks(rprojroot::find_package_root_file())
+blocks <- force(blocks)
+roxy_get_section(blocks, "lookup", "title")

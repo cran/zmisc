@@ -1,4 +1,9 @@
 
+# zmisc 0.2.2
+
+* This version fixes an incompatibility with roxygen 7.1.3.
+
+
 # zmisc 0.2.1
 
 * This version includes documentation improvements as well as
