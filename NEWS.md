@@ -1,4 +1,12 @@
 
+# zmisc 0.2.3
+
+* Adds the notate() function.
+
+* Adds a default parameter to the lookup() and lookuper() 
+  functions.
+
+
 # zmisc 0.2.2
 
 * This version fixes an incompatibility with roxygen 7.1.3.

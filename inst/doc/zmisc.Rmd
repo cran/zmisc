@@ -54,6 +54,7 @@ In order to use the package, you generally want to attach it first:
 library(zmisc)
 ```
 
+
 ## Quick and easy value lookups
 
 The functions [lookup()] and [lookuper()] are used to look up values from a lookup
@@ -80,6 +81,7 @@ roxy_get_section(blocks, "lookup", "examples") |> kat_code()
 ```{r, echo=FALSE}
 roxy_get_section(blocks, "lookuper", "examples") |> kat_code()
 ```
+
 
 ## Safer sampling, sequencing and aggregation
 
@@ -121,12 +123,34 @@ roxy_get_section(blocks, "zingle", "examples") |> kat_code()
 ```
 
 
-[lookup()]: https://torfason.github.io/zmisc/reference/lookup.html
+## Getting a better view on variables
+
+The [notate()] function adds annotations to `factor` and `labelled` variables
+that make it easier to see both values and labels/levels when using the [View()]
+function
+
+### notate: `r roxy_get_section(blocks, "notate", "title")`
+
+`r roxy_get_section(blocks, "notate", "description")`
+
+#### Examples
+
+```{r, echo=FALSE}
+roxy_get_section(blocks, "notate", "examples") |> kat_code()
+```
+
+
+
+[lookup()]:   https://torfason.github.io/zmisc/reference/lookup.html
 [lookuper()]: https://torfason.github.io/zmisc/reference/lookuper.html
 
-[zeq()]: https://torfason.github.io/zmisc/reference/zeq.html
-[zample()]: https://torfason.github.io/zmisc/reference/zample.html
-[zingle()]: https://torfason.github.io/zmisc/reference/zingle.html
+[zeq()]:      https://torfason.github.io/zmisc/reference/zeq.html
+[zample()]:   https://torfason.github.io/zmisc/reference/zample.html
+[zingle()]:   https://torfason.github.io/zmisc/reference/zingle.html
 
-[seq()]:    https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/seq
-[sample()]: https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/sample
+[notate()]:   https://torfason.github.io/zmisc/reference/zingle.html
+
+
+[seq()]:      https://rdrr.io/r/base/seq.html
+[sample()]:   https://rdrr.io/r/base/sample.html
+[View()]:     https://rdrr.io/r/utils/View.html

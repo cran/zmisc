@@ -12,7 +12,6 @@
 #'
 #' @docType package
 #' @name zmisc
-#' @md
 #' @keywords internal
 "_PACKAGE"
 

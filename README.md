@@ -12,8 +12,9 @@ status](https://www.r-pkg.org/badges/version/zmisc)](https://CRAN.R-project.org/
 ## Vector Look-Ups and Safer Sampling
 
 A collection of utility functions that facilitate looking up vector
-values from a lookup table, and support a safer approach to vector
-sampling, sequence generation, and aggregation.
+values from a lookup table, annotate values in at table for clearer
+viewing, and support a safer approach to vector sampling, sequence
+generation, and aggregation.
 
 ## Installation
 
@@ -54,8 +55,7 @@ smoothly in an R workflow, in particular within pipes.
 The [lookup()](https://torfason.github.io/zmisc/reference/lookup.html)
 function implements lookup of certain strings (such as variable names)
 from a lookup table which maps keys onto values (such as variable labels
-or descriptions). Original values are returned if they are not found in
-the lookup table.
+or descriptions).
 
 The lookup table can be in the form of a two-column `data.frame`, in the
 form of a named `vector`, or in the form of a `list`. If the table is in
@@ -64,6 +64,13 @@ the form of a `data.frame`, the lookup columns should be named `name`
 form of a named `vector` or `list`, the name is used for the key, and
 the returned value is taken from the values in the vector or list.
 
+Original values are returned if they are not found in the lookup table.
+Alternatively, a `default` can be specified for values that are not
+found. Note that an `NA` in x will never be found and will be replaced
+with the default value. To specify different defaults for values that
+are not found and for `NA` values in `x`, the `default` must be crafted
+manually to achieve this.
+
 Any names in x are not included in the result.
 
 #### Examples
@@ -71,6 +78,7 @@ Any names in x are not included in the result.
 ``` r
 fruit_lookup_vector <- c(a="Apple", b="Banana", c="Cherry")
 lookup(letters[1:5], fruit_lookup_vector)
+lookup(letters[1:5], fruit_lookup_vector, default = NA)
 
 mtcars_lookup_data_frame <- data.frame(
   name = c("mpg", "hp", "wt"),
@@ -109,23 +117,20 @@ intended to make your code less likely to break in mysterious ways when
 you encounter unexpected boundary conditions. The
 [zample()](https://torfason.github.io/zmisc/reference/zample.html) and
 [zeq()](https://torfason.github.io/zmisc/reference/zeq.html) are almost
-identical to the
-[sample()](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/sample)
-and
-[seq()](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/seq)
-functions, but a bit safer.
+identical to the [sample()](https://rdrr.io/r/base/sample.html) and
+[seq()](https://rdrr.io/r/base/seq.html) functions, but a bit safer.
 
 ### zample: Sample from a vector in a safe way
 
 The [zample()](https://torfason.github.io/zmisc/reference/zample.html)
 function duplicates the functionality of
-[sample()](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/sample),
-with the exception that it does not attempt the (sometimes dangerous)
-user-friendliness of switching the interpretation of the first element
-to a number if the length of the vector is 1. `zample()` *always* treats
-its first argument as a vector containing elements that should be
-sampled, so your code won’t break in unexpected ways when the input
-vector happens to be of length 1.
+[sample()](https://rdrr.io/r/base/sample.html), with the exception that
+it does not attempt the (sometimes dangerous) user-friendliness of
+switching the interpretation of the first element to a number if the
+length of the vector is 1. `zample()` *always* treats its first argument
+as a vector containing elements that should be sampled, so your code
+won’t break in unexpected ways when the input vector happens to be of
+length 1.
 
 #### Examples
 
@@ -217,4 +222,45 @@ if (require("dplyr", quietly=TRUE, warn.conflicts=FALSE)) {
       dplyr::summarise(name=zingle(name), total_fouls=sum(fouls))
   }, error=wrap_error)
 }
+```
+
+## Getting a better view on variables
+
+The [notate()](https://torfason.github.io/zmisc/reference/zingle.html)
+function adds annotations to `factor` and `labelled` variables that make
+it easier to see both values and labels/levels when using the
+[View()](https://rdrr.io/r/utils/View.html) function
+
+### notate: Embed factor levels and value labels in values.
+
+This function adds level/label information as an annotation to either
+factors or `labelled` variables. This function is called `notate()`
+rather than `annotate()` to avoid conflict with `ggplot2::annotate()`.
+It is a generic that can operate either on individual vectors or on a
+`data.frame`.
+
+When printing `labelled` variables from a `tibble` in a console, both
+the numeric value and the text label are shown, but no variable labels.
+When using the `View()` function, only variable labels are shown but no
+value labels. For factors, there is no way to view the integer levels
+and values at the same time.
+
+In order to allow the viewing of both variable and value labels at the
+same time, this function converts both `factor` and `labelled` variables
+to `character`, including both numeric levels (`labelled` values) and
+character values (`labelled` labels) in the output.
+
+#### Examples
+
+``` r
+d <- data.frame(
+  chr = letters[1:4],
+  fct = factor(c("alpha", "bravo", "chrly", "delta")),
+  lbl = ll_labelled(c(1, 2, 3, NA),
+                    labels = c(one=1, two=2),
+                    label = "A labelled vector")
+)
+dn <- notate(d)
+dn
+# View(dn)
 ```

@@ -16,6 +16,10 @@
 #' a combination of the single value and any `NA` values (but at least one
 #' non-`NA` value is required).
 #'
+#' Only values are tested for equality. Any names are simply ignored, and the
+#' result is an unnamed value. This is in line with how other aggregation
+#' functions handle names.
+#'
 #' @param x Vector of elements that should all be identical
 #' @param na.rm Should `NA` elements be removed prior to comparison
 #' @return The `zingle` element in the vector
@@ -52,12 +56,11 @@
 #'   }, error=wrap_error)
 #' }
 #
-#' @md
 #' @export
 zingle = function(x, na.rm = FALSE)
 {
-    if (na.rm) x = x[!is.na(x)]
-    stopifnot(all(x[1]==x))
-    return(x[1])
+  if (na.rm) x = x[!is.na(x)]
+  stopifnot(all(x[1]==x))
+  unname(x[1])
 }
 

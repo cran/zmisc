@@ -6,8 +6,8 @@
 
 ## Build package and basic documentation (before commits)
 {
-  devtools::build()
   devtools::document()
+  devtools::build()
   devtools::build_readme()
   devtools::test()
   message("Build OK")

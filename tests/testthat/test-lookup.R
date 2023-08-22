@@ -68,3 +68,32 @@ test_that("standardize_lookup_table works", {
   expect_equal(l.have, l.want)
 
 })
+
+#### test missing values####
+test_that("looking up missing values works", {
+  d.lookup <- data.frame(
+    name  = c("house cat", "lizard",  "parrot"),
+    value = c("mammal",    "reptile", "bird")
+  )
+
+  have.default = lookup(c("lizard", "parrot", "house cat", "tiger", "", NA), d.lookup)
+  want.default = c("reptile", "bird", "mammal", "tiger", "", NA)
+  expect_equal(have.default, want.default)
+
+  have.na = lookup(c("lizard", "parrot", "house cat", "tiger", "", NA), d.lookup, default = NA)
+  want.na = c("reptile", "bird", "mammal", NA, NA, NA)
+  expect_equal(have.default, want.default)
+
+  # Note that NA values are never found in the lookup table, and so are replaced with the default
+  have.empty = lookup(c("lizard", "parrot", "house cat", "tiger", "", NA), d.lookup, default = "")
+  want.empty = c("reptile", "bird", "mammal", "", "", "")
+  expect_equal(have.empty, want.empty)
+
+  lookup_animals_default <- lookuper(d.lookup)
+  have.lookuper.default <- lookup_animals_default(c("lizard", "parrot", "house cat", "tiger", "", NA))
+  expect_equal(have.lookuper.default, want.default)
+
+  lookup_animals_na <- lookuper(d.lookup, default = NA)
+  have.lookuper.na <- lookup_animals_na(c("lizard", "parrot", "house cat", "tiger", "", NA))
+  expect_equal(have.lookuper.na, want.na)
+})

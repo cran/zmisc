@@ -28,6 +28,10 @@ aggregate functions. If \code{TRUE}, \code{NA} values will be removed prior to
 comparing the elements, so the function will accept input values that contain
 a combination of the single value and any \code{NA} values (but at least one
 non-\code{NA} value is required).
+
+Only values are tested for equality. Any names are simply ignored, and the
+result is an unnamed value. This is in line with how other aggregation
+functions handle names.
 }
 \examples{
 # If all elements are identical, all is good.

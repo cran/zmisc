@@ -24,7 +24,6 @@
 #' # If second argument is less than first-1, the function throws an error
 #' tryCatch(zeq(11,9), error=wrap_error)
 #'
-#' @md
 #' @export
 zeq = function(from, to)
 {

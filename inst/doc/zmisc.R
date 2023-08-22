@@ -34,3 +34,6 @@ roxy_get_section(blocks, "zeq", "examples") |> kat_code()
 ## ---- echo=FALSE--------------------------------------------------------------
 roxy_get_section(blocks, "zingle", "examples") |> kat_code()
 
+## ---- echo=FALSE--------------------------------------------------------------
+roxy_get_section(blocks, "notate", "examples") |> kat_code()
+
